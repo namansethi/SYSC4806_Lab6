@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="addressBookView" class="Spring.MVC.AddressBookView" init-method="init">
+        <property name="title" value="Dependency Injected Title"/>
+        <property name="panelComponents">
+            <list>
+                <ref bean="buddyInfoJList"/>
+                <ref bean="nameField"/>
+                <ref bean="numberField"/>
+                <ref bean="addBuddyButton"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="buddyInfoJList" class="Spring.MVC.BuddyInfoJList" init-method="init">
+        <property name="addressBook" ref="addressBook"/>
+    </bean>
+    <bean id="addressBook" class="Spring.MVC.AddressBook">
+        <property name="buddyList">
+            <list>
+                <ref bean="bobBuddy"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="bobBuddy" class="Spring.MVC.BuddyInfo">
+        <property name="name" value="Bob"/>
+        <property name="number" value="12345"/>
+    </bean>
+    <bean id="nameField" class="javax.swing.JTextField">
+        <property name="text" value="Enter Name Here"/>
+    </bean>
+    <bean id="numberField" class="javax.swing.JTextField">
+        <property name="text" value="Enter Number Here"/>
+    </bean>
+    <bean id="addBuddyButton" class="Spring.MVC.AddButton" init-method="init">
+        <property name="text" value="Add Buddy"/>
+        <property name="actionListener" ref="addBuddyActionListener"/>
+    </bean>
+    <bean id="addBuddyActionListener"
+          class="Spring.MVC.AddBuddyActionListener">
+        <property name="book" ref="addressBook"/>
+        <property name="nameField" ref="nameField"/>
+        <property name="numberField" ref="numberField"/>
+        <property name="buddyInfoJList" ref="buddyInfoJList"/>
+    </bean>
+
+</beans>
