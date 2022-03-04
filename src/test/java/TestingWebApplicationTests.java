@@ -9,6 +9,7 @@ public class TestingWebApplicationTests {
 
     @Test
     public void contextLoads() {
+        System.out.println("Hello World!");
     }
 
 }
